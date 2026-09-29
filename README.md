@@ -1,4 +1,3 @@
-cat > README.md << 'EOF'
 # Frontend Labs
 
 Лабораторні роботи з Frontend-розробки.
