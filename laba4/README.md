@@ -44,7 +44,7 @@ App: Routes → AppLayout → Outlet
 
 Компоненти Light, TrafficLights, StatsBar і StateSummary працюють через props та не імпортують Router або Context.
 
-## Для захисту
+## Пояснення реалізації
 
 **SPA:** один HTML-документ; Router змінює URL і дочірні компоненти без повного завантаження документа. NavLink/Link забезпечують внутрішню SPA-навігацію, NavLink також позначає активну сторінку. Outlet показує відповідний дочірній маршрут у спільному макеті.
 
