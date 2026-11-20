@@ -1,9 +1,7 @@
-const apiUrl = import.meta.env.VITE_GAS_API_URL?.trim();
+const deployedUrl = 'https://script.google.com/macros/s/AKfycbyVo3pEZ5R6JyP0cZ_vFHtJXtiop6SjmAFOmjaFVeyZtjOy2I7ZWPhlms2p6QbI8DQIzw/exec';
+const apiUrl = import.meta.env.VITE_GAS_API_URL?.trim() || deployedUrl;
 
 function endpoint() {
-  if (!apiUrl) {
-    throw new Error('Укажіть URL розгортання GAS у VITE_GAS_API_URL.');
-  }
   return new URL(apiUrl);
 }
 
