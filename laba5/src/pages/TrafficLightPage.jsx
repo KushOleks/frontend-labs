@@ -20,17 +20,25 @@ export default function TrafficLightPage() {
         <label>Тривалість фази<select value={intervalMs} onChange={event => setIntervalMs(Number(event.target.value))}><option value={500}>0,5 секунди</option><option value={1500}>1,5 секунди</option><option value={3000}>3 секунди</option></select></label>
         <p>Зміна тривалості починає новий повний відлік поточної фази.</p>
       </section>
-      <section className="controls" aria-label="Серверне збереження">
-        <h2>Google Sheets</h2>
-        <p role="status">
-          {save.status === 'saving' && 'Збереження сигналу… '}
-          {save.status === 'success' && 'Збереження підтверджено. '}
-          {savedSignal ? `Останній підтверджений сигнал — ${labels[savedSignal]}.` : 'Збережений сигнал ще не завантажено.'}
-        </p>
-        {save.status === 'error' && <p role="alert">Збереження не підтверджено. {save.error}</p>}
-        <button className="primary" disabled={load.status !== 'success' || save.status === 'saving'} onClick={saveCurrentSignal}>
-          Зберегти поточний сигнал
-        </button>
+      <section className="controls save-card" aria-labelledby="save-card-title">
+        <div className="save-card-row">
+          <div>
+            <h2 id="save-card-title">Google Sheets</h2>
+            <p className="save-card-status" role="status">
+              {savedSignal && <span className={`dot ${savedSignal}`} aria-hidden="true" />}
+              {savedSignal ? `Збережено · ${labels[savedSignal]}` : 'Сигнал не завантажено'}
+            </p>
+          </div>
+          <button
+            className="save-card-button"
+            aria-label={save.status === 'saving' ? 'Збереження сигналу' : 'Зберегти поточний сигнал'}
+            disabled={load.status !== 'success' || save.status === 'saving'}
+            onClick={saveCurrentSignal}
+          >
+            {save.status === 'saving' ? 'Збереження…' : 'Зберегти'}
+          </button>
+        </div>
+        {save.status === 'error' && <p className="save-card-error" role="alert">Збереження не підтверджено. {save.error}</p>}
       </section><StatsBar counts={counts}/></aside>
     </div>
     <div className="phase-cycle" aria-label="Послідовність фаз">{cycle.map((color, index) => <span key={index} className={phaseIndex === index ? 'selected' : ''} aria-current={phaseIndex === index ? 'step' : undefined}>{index + 1}. {labels[color]}{index < cycle.length - 1 ? ' →' : ' ↻'}</span>)}</div>
